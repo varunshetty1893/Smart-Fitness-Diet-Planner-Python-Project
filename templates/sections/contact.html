@@ -1,0 +1,70 @@
+<section id="contact" class="contact-section py-5">
+
+    <div class="container text-center mb-5">
+        <h2 class="fw-bold text-uppercase text-white">Contact Us</h2>
+        <p class="text-light fst-italic">We'd Love to Hear From You</p>
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- FORM -->
+            <div class="col-lg-6 mb-4">
+
+                {% if success %}
+                    <div class="alert alert-success">
+                        Message sent successfully!
+                    </div>
+                {% endif %}
+
+                <form method="POST" action="{{ url_for('contact') }}">
+
+
+                    <input type="text" name="name" class="form-control mb-3"
+                           placeholder="Full Name *" required>
+
+                    <input type="email" name="email" class="form-control mb-3"
+                           placeholder="Email Address *" required>
+
+                    <input type="text" name="subject" class="form-control mb-3"
+                           placeholder="Subject *" required>
+
+                    <textarea name="message" rows="5"
+                              class="form-control mb-3"
+                              placeholder="Your Message *"
+                              required></textarea>
+
+                    <button type="submit"
+                            class="btn btn-success px-4">
+                        Send Message
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- INFO CARD -->
+            <div class="col-lg-6">
+
+                <div class="contact-card p-4">
+
+                    <h5 class="fw-bold text-success">Support</h5>
+                    <p>Email: support@dietplanner.com</p>
+                    <p>Phone: +91 98765 43210</p>
+                    <p>Chikmagalur, Karnataka, India</p>
+
+                    <hr>
+
+                    <h6 class="fw-bold">Working Hours</h6>
+                    <p>Mon – Sat: 9 AM – 6 PM</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

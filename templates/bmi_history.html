@@ -1,0 +1,143 @@
+{% extends "user_base.html" %}
+{% block content %}
+
+<div class="section-card bmi-history-page">
+
+    <!-- Title -->
+    <div class="d-flex align-items-center mb-4">
+        <i class="bi bi-clock-history text-primary me-2 fs-4"></i>
+        <h4 class="mb-0">BMI History</h4>
+    </div>
+
+    <!-- ================= SUMMARY CARDS ================= -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+            <div class="card summary-card text-center p-3">
+                <h6>Latest BMI</h6>
+                <h3>{{ latest_bmi }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card summary-card text-center p-3">
+                <h6>Highest BMI</h6>
+                <h3>{{ highest_bmi }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card summary-card text-center p-3">
+                <h6>Lowest BMI</h6>
+                <h3>{{ lowest_bmi }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card summary-card text-center p-3">
+                <h6>Total Records</h6>
+                <h3>{{ total_records }}</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= CHART SECTION ================= -->
+    {% if bmi_values %}
+    <div class="card chart-card mb-4">
+        <div class="card-body">
+            <h6 class="mb-3">BMI Progress Trend</h6>
+            <div class="bmi-chart-container">
+                <canvas id="bmiChart"></canvas>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ================= TABLE SECTION ================= -->
+    <div class="card table-card">
+        <div class="card-body">
+            <h6 class="mb-3">BMI Records</h6>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Height (cm)</th>
+                            <th>Weight (kg)</th>
+                            <th>BMI</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in records %}
+                        <tr>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[0] }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if row[3] == 'Normal' %} bg-success
+                                    {% elif row[3] == 'Overweight' %} bg-danger
+                                    {% else %} bg-primary
+                                    {% endif %}
+                                ">
+                                    {{ row[3] }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- ================= CHART SCRIPT ================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('bmiChart');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ dates | tojson }},
+        datasets: [{
+            label: "BMI",
+            data: {{ bmi_values | tojson }},
+            borderColor: "#16a34a",
+            backgroundColor: "rgba(22,163,74,0.15)",
+            borderWidth: 3,
+            pointBackgroundColor: "#16a34a",
+            pointRadius: 5,
+            fill: true,
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    maxRotation: 0,
+                    minRotation: 0
+                }
+            },
+            y: {
+                beginAtZero: false
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

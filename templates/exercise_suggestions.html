@@ -1,0 +1,84 @@
+{% extends "user_base.html" %}
+{% block content %}
+
+<div class="section-card">
+
+    <h4 class="mb-4">
+        <i class="bi bi-bicycle text-success me-2"></i>
+        Recommended Yoga Exercises
+    </h4>
+
+    {% if exercises %}
+
+    <div class="row g-4">
+
+        {% for ex in exercises %}
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card exercise-card text-center h-100">
+
+                <!-- Image Wrapper -->
+                <div class="image-wrapper">
+                    <img src="{{ url_for('static', filename='exercise/' ~ ex[5]) }}" class="exercise-img"
+                        alt="{{ ex[1] }}">
+                </div>
+
+                <!-- Title + Button -->
+                <div class="card-body pt-3">
+                    <h6 class="fw-semibold mb-3">{{ ex[1] }}</h6>
+
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#modal{{ ex[0] }}">
+                        View Details
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal{{ ex[0] }}" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ ex[1] }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body text-center">
+
+                        <img src="{{ url_for('static', filename='exercise/' ~ ex[5]) }}" class="img-fluid mb-4"
+                            style="max-height:420px; object-fit:contain;">
+
+                        <p class="mb-3">
+                            {{ ex[6] }}
+                        </p>
+                        <span class="badge bg-success mb-2">
+                            {{ ex[2] }}
+                        </span>
+                        <p class="text-muted mb-0">
+                            BMI Range: {{ ex[3] }} - {{ ex[4] }}
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-info">
+        Please calculate your BMI first to get exercise suggestions.
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

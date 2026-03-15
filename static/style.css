@@ -1,0 +1,524 @@
+/* ===== RESET ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+    padding-top: 20px;   /* Needed because navbar is fixed-top */
+}
+
+/* ===== Layout ===== */
+
+.main-content {
+    width: 100%;
+}
+
+/* ===== Sections ===== */
+
+.main-content section {
+    width: 100%;
+    padding: 100px 0;
+}
+
+/* Manual section colors */
+
+.section-white {
+    background-color: #ffffff;
+}
+
+.section-gray {
+    background-color: #f5f7fa;
+}
+
+/* ===== CUSTOM NAVBAR ===== */
+
+.custom-navbar {
+    background: linear-gradient(90deg, #198754, #146c43);
+    padding-top: 18px;   /* Increased height */
+    padding-bottom: 18px;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+.brand-light {
+    font-weight: 400;
+    opacity: 0.85;
+}
+
+/* NAV LINKS */
+
+.nav-custom .nav-link {
+    position: relative;
+    font-weight: 500;
+    margin-left: 18px;
+    transition: all 0.3s ease;
+}
+
+/* Underline animation */
+.nav-custom .nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -6px;
+    left: 0;
+    background-color: #ffffff;
+    transition: width 0.3s ease;
+}
+.navbar .highlight-nav:hover {
+    color: #198754 !important;
+}
+
+.nav-custom .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hover glow */
+.nav-custom .nav-link:hover {
+    color: #ffffff !important;
+    transform: translateY(-2px);
+}
+
+.highlight-nav {
+    border: 2px solid #ffffff;
+    padding: 6px 18px !important;
+    border-radius: 25px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #ffffff !important;
+}
+
+.highlight-nav:hover {
+    background: #ffffff;
+    color: #198754 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.navbar .highlight-nav:hover {
+    color: #198754 !important;
+}
+
+.highlight-nav::after {
+    display: none !important;
+}
+
+/* ===== HERO SECTION ===== */
+
+.hero-section {
+    height: calc(100vh - 70px); /* full screen minus navbar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.55)
+        ),
+        url("/static/images/hero-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+}
+
+/* Remove extra spacing issues */
+
+#hero {
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== Feature Cards ===== */
+
+.feature-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.feature-img {
+    height: 120px;
+    width: 120px;
+    object-fit: contain;
+}
+
+/* ===== About Section ===== */
+
+.about-box {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 30px;
+}
+
+/* ===== Contact Section ===== */
+
+.contact-info {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* ===== Footer ===== */
+
+.footer-dark {
+    background-color: #1f2933;
+    color: #ffffff;
+    width: 100%;
+    padding: 60px 0;
+}
+
+.footer-dark a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-dark a:hover {
+    color: #28a745;
+}
+
+.footer-line {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== Buttons ===== */
+
+.btn-success {
+    border-radius: 8px;
+    padding: 10px 25px;
+}
+
+/* ===== Smooth Scroll ===== */
+
+html {
+    scroll-behavior: smooth;
+}
+/* ============================= */
+/* ===== BMI PAGE STYLING ====== */
+/* ============================= */
+
+.bmi-card {
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    padding: 50px;
+}
+
+.bmi-number {
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.bmi-status {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.bmi-message {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 15px;
+}
+
+.bmi-table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.bmi-table thead {
+    background-color: #f1f3f5;
+}
+
+.bmi-table th {
+    font-weight: 600;
+}
+
+.bmi-table td {
+    padding: 14px;
+}
+
+.bmi-actions ul {
+    padding-left: 20px;
+}
+
+.bmi-actions li {
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.bmi-btn {
+    margin-top: 30px;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.bmi-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================= */
+/* COLOR STATUS */
+/* ============================= */
+
+.bmi-underweight {
+    color: #0d6efd;
+}
+
+.bmi-normal {
+    color: #198754;
+}
+
+.bmi-overweight {
+    color: #ffc107;
+}
+
+.bmi-obese {
+    color: #dc3545;
+}
+
+/* ===== ABOUT SECTION ===== */
+
+.about-highlight-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.about-stat h3 {
+    font-size: 1.8rem;
+    color: #198754;
+}
+
+.about-stat p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+/* ===== CONTACT SECTION BACKGROUND ===== */
+
+.contact-section {
+    position: relative;
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.55),  /* reduced overlay */
+            rgba(0, 0, 0, 0.55)
+        ),
+        url("/static/images/contact-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+}
+
+/* Make form look premium */
+.contact-section .form-control {
+    border-radius: 12px;
+    padding: 12px;
+    border: none;
+}
+
+/* Focus glow */
+.contact-section .form-control:focus {
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
+}
+
+/* Contact info card */
+.contact-card {
+    background: #ffffff;
+    color: #212529; /* DARK text inside white card */
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Fix text selection ONLY inside contact section */
+.contact-section ::selection {
+    background: #198754; /* theme green */
+    color: #ffffff;
+}
+
+.contact-section ::-moz-selection {
+    background: #198754;
+    color: #ffffff;
+}
+/* ================= FOOTER ================= */
+/* ===============================
+   PREMIUM FOOTER
+================================ */
+
+.footer-premium {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+    padding: 80px 0 30px 0;
+    position: relative;
+}
+
+.footer-logo {
+    width: 90px;
+    height: auto;
+    background: transparent;
+}
+
+.footer-tagline {
+    font-size: 14px;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Headings */
+.footer-heading {
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.footer-heading::after {
+    content: "";
+    width: 40px;
+    height: 3px;
+    background: #28a745;
+    display: block;
+    margin-top: 8px;
+}
+
+/* Links */
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: #28a745;
+    padding-left: 5px;
+}
+
+/* Social Icons */
+.footer-social a {
+    color: #ffffff;
+    font-size: 18px;
+    margin-right: 12px;
+    transition: 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #28a745;
+    transform: translateY(-3px);
+}
+
+/* Map */
+.footer-map iframe {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Divider */
+.footer-divider {
+    border-color: rgba(255,255,255,0.2);
+    margin: 40px 0 20px 0;
+}
+
+/* Bottom */
+.footer-bottom {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+
+.footer-premium {
+    background: linear-gradient(135deg, #1f2933, #2c3e50);
+    color: #ffffff;
+    width: 100%;
+    font-size: 14px;
+}
+
+
+
+/* ===== LOGIN PAGE CENTERING ===== */
+
+.login-wrapper {
+    min-height: calc(100vh - 140px); /* full height minus navbar & footer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ===== STICK FOOTER TO BOTTOM ===== */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}
+
+
+/* ===== ADMIN SIDEBAR ===== */
+
+.admin-sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background-color: #1f2933;
+}
+
+.admin-sidebar .nav-link {
+    color: #ffffff;
+    padding: 10px 15px;
+}
+
+.admin-sidebar .nav-link:hover {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.admin-content {
+    flex: 1;
+    background-color: #f8f9fa;
+}

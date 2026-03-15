@@ -1,0 +1,54 @@
+<div class="sidebar">
+
+    <!-- Logo Section -->
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        <h6>USER PANEL</h6>
+    </div>
+
+    <!-- Main Menu -->
+    <div class="menu-section">
+        <p class="menu-title">MAIN</p>
+
+        <a href="{{ url_for('dashboard') }}">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+
+        <a href="{{ url_for('bmi') }}">
+            <i class="bi bi-activity"></i> BMI
+        </a>
+
+        <a href="{{ url_for('bmi_history') }}">
+            <i class="bi bi-clock-history"></i> BMI History
+        </a>
+
+        <a href="{{ url_for('hydration') }}">
+            <i class="bi bi-droplet"></i> Water Intake
+        </a>
+
+        <a href="{{ url_for('hydration_history') }}">
+            <i class="bi bi-calendar-check"></i> Water History
+        </a>
+        <a href="{{ url_for('exercise_suggestions') }}">
+            <i class="bi bi-bicycle"></i> Exercise Suggestions
+        </a>
+    </div>
+
+    <!-- Account Section -->
+    <div class="menu-section mt-3">
+        <p class="menu-title">ACCOUNT</p>
+
+        <a href="{{ url_for('profile') }}">
+            <i class="bi bi-person"></i> Profile
+        </a>
+
+        <a href="{{ url_for('user_change_password') }}">
+            <i class="bi bi-shield-lock"></i> Change Password
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="logout-link">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+    </div>
+
+</div>

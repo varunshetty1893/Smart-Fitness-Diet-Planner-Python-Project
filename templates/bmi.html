@@ -1,0 +1,96 @@
+{% extends "user_base.html" %}
+
+{% block content %}
+
+<div class="section-card">
+
+    <h4 class="mb-4">
+        <i class="bi bi-calculator me-2"></i>
+        BMI Calculator
+    </h4>
+
+    <form method="POST">
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label class="form-label">Height (cm)</label>
+                <input type="number" step="0.1" name="height"
+                       class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Weight (kg)</label>
+                <input type="number" step="0.1" name="weight"
+                       class="form-control" required>
+            </div>
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-success mt-3">
+            <i class="bi bi-lightning-charge me-1"></i>
+            Calculate BMI
+        </button>
+
+    </form>
+
+</div>
+
+
+{% if result %}
+
+<!-- RESULT SECTION -->
+<div class="section-card mt-4">
+
+    <h5>Your BMI Result</h5>
+
+    <h2 class="text-primary">{{ result.bmi }}</h2>
+    <span class="badge bg-info">{{ result.category }}</span>
+
+    <p class="text-muted mt-2">
+        Calculated at: {{ result.time }}
+    </p>
+
+</div>
+
+
+<!-- DOCTOR SUGGESTIONS -->
+<div class="section-card mt-4">
+    <h4>
+        <i class="bi bi-person-heart me-2"></i>
+        Suggested Doctors
+    </h4>
+
+    {% if doctors %}
+        <div class="row mt-3">
+            {% for doc in doctors %}
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm p-3">
+
+                    <h6 class="fw-bold">{{ doc[1] }}</h6>
+                    <p class="mb-1 small text-muted">
+                        Specialization: {{ doc[2] }}
+                    </p>
+                    <p class="mb-1 small">
+                        <i class="bi bi-telephone"></i> {{ doc[3] }}
+                    </p>
+                    <p class="mb-1 small">
+                        <i class="bi bi-envelope"></i> {{ doc[4] }}
+                    </p>
+                    <p class="small text-muted">
+                        Experience: {{ doc[5] }} years
+                    </p>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted mt-2">No doctors available.</p>
+    {% endif %}
+</div>
+
+{% endif %}
+
+{% endblock %}

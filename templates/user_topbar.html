@@ -1,0 +1,33 @@
+<div class="topbar">
+
+    <h5>
+        <i class="bi bi-speedometer2 me-2 text-success"></i>
+        Smart Diet User
+    </h5>
+
+    <div class="dropdown">
+        <a href="#" class="text-dark" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-4"></i>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li>
+                <a class="dropdown-item" href="{{ url_for('profile') }}">
+                    <i class="bi bi-person me-2"></i> Profile
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ url_for('user_change_password') }}">
+                    <i class="bi bi-key me-2"></i> Change Password
+                </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="dropdown-item text-danger" href="{{ url_for('logout') }}">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>

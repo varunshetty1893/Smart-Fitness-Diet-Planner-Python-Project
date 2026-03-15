@@ -1,0 +1,80 @@
+<section class="section-white py-5">
+
+    <div class="container text-center mb-5">
+        <h2 class="fw-bold text-uppercase">BMI Information</h2>
+        <p class="text-muted fst-italic">
+            Check your Body Mass Index and understand your health level
+        </p>
+    </div>
+
+    <div class="container">
+
+        <div class="bmi-card text-center">
+
+            <!-- BMI Number -->
+            <div class="bmi-number
+                {% if status == 'Underweight' %}
+                    bmi-underweight
+                {% elif status == 'Normal' %}
+                    bmi-normal
+                {% elif status == 'Overweight' %}
+                    bmi-overweight
+                {% else %}
+                    bmi-obese
+                {% endif %}
+            ">
+                {{ bmi }}
+            </div>
+
+            <div class="bmi-status">
+                {{ status }}
+            </div>
+
+            <div class="bmi-message">
+                {% if status == "Underweight" %}
+                    You are below the healthy weight range.
+                {% elif status == "Normal" %}
+                    You are maintaining a healthy BMI.
+                {% elif status == "Overweight" %}
+                    Consider improving your activity level.
+                {% else %}
+                    Consult a healthcare professional for guidance.
+                {% endif %}
+            </div>
+
+            <div class="table-responsive mt-5">
+                <table class="table bmi-table text-center">
+                    <thead>
+                        <tr>
+                            <th>BMI Range</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Below 18.5</td><td>Underweight</td></tr>
+                        <tr><td>18.5 – 24.9</td><td>Normal</td></tr>
+                        <tr><td>25 – 29.9</td><td>Overweight</td></tr>
+                        <tr><td>30 and Above</td><td>Obese</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bmi-actions mt-4 text-start">
+                <h5 class="fw-bold">Recommended Actions</h5>
+                <ul>
+                    <li>Follow a structured diet plan</li>
+                    <li>Maintain regular exercise routine</li>
+                    <li>Track your calorie intake daily</li>
+                </ul>
+            </div>
+
+            <a href="{% if session.get('user') %}{{ url_for('dashboard') }}{% else %}{{ url_for('login') }}{% endif %}"
+               class="btn btn-success bmi-btn">
+                Check Your BMI
+            </a>
+
+        </div>
+
+    </div>
+
+</section>

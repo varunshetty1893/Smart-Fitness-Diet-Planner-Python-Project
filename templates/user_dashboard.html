@@ -1,0 +1,142 @@
+{% extends "user_base.html" %}
+{% block content %}
+
+<!-- HEADER -->
+<div class="dashboard-header mb-4">
+    <h3>Welcome {{ username }}</h3>
+    <p>{{ today_date }}</p>
+</div>
+
+<!-- STAT CARDS -->
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <i class="bi bi-activity stat-icon icon-blue"></i>
+            <div class="stat-title">Latest BMI</div>
+            <div class="stat-value">{{ bmi }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <i class="bi bi-heart-pulse stat-icon icon-red"></i>
+            <div class="stat-title">BMI Category</div>
+            <div class="stat-value">{{ bmi_category }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <i class="bi bi-droplet stat-icon icon-cyan"></i>
+            <div class="stat-title">Water Intake</div>
+            <div class="stat-value">{{ water }} L</div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <i class="bi bi-bar-chart stat-icon icon-yellow"></i>
+            <div class="stat-title">Total Records</div>
+            <div class="stat-value">{{ total_bmi + total_water }}</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- TREND GRAPHS -->
+<div class="row mt-4 g-4">
+
+    <div class="col-md-6">
+        <div class="section-card">
+            <h6>
+                <i class="bi bi-graph-up-arrow icon-blue me-2"></i>
+                BMI Progress Trend
+            </h6>
+            <div class="chart-container">
+                <canvas id="bmiTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="section-card">
+            <h6>
+                <i class="bi bi-droplet-half icon-cyan me-2"></i>
+                Water Intake Trend
+            </h6>
+            <div class="chart-container">
+                <canvas id="waterTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- SUMMARY -->
+<div class="section-card mt-4 summary-box">
+    <h5>
+        <i class="bi bi-lightbulb icon-yellow me-2"></i>
+        Health Summary
+    </h5>
+
+    <p><strong>Total BMI Entries:</strong> {{ total_bmi }}</p>
+    <p><strong>Total Water Entries:</strong> {{ total_water }}</p>
+
+    <div class="alert alert-info alert-custom mt-3">
+        {{ health_message }}
+    </div>
+</div>
+
+<div class="dashboard-footer">
+    © 2026 Smart Diet Planner — User Dashboard
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // BMI Trend
+    new Chart(document.getElementById("bmiTrendChart"), {
+        type: "line",
+        data: {
+            labels: {{ bmi_labels|safe }},
+            datasets: [{
+                data: {{ bmi_values|safe }},
+                borderColor: "#16a34a",
+                backgroundColor: "rgba(22,163,74,0.1)",
+                fill: true,
+                tension: 0.4,
+                pointRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false }},
+            scales: { y: { beginAtZero: false } }
+        }
+    });
+
+    // Water Trend
+    new Chart(document.getElementById("waterTrendChart"), {
+        type: "bar",
+        data: {
+            labels: {{ water_labels|safe }},
+            datasets: [{
+                data: {{ water_values|safe }},
+                backgroundColor: "#2563eb",
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false }},
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+
+});
+</script>
+
+{% endblock %}

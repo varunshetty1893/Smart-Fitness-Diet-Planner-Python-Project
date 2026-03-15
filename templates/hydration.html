@@ -1,0 +1,160 @@
+{% extends "user_base.html" %}
+{% block content %}
+
+<div class="hydration-hero">
+    <h3><i class="bi bi-droplet-half me-2"></i>Hydration Tracker</h3>
+    <p>Monitor your daily water requirement and intake.</p>
+</div>
+<!-- EXPLANATION SECTION -->
+<div class="section-card mb-4">
+
+    <h5>
+        <i class="bi bi-info-circle me-2 text-info"></i>
+        Why Is Hydration Calculated Using Weight?
+    </h5>
+
+    <p>
+        Your body requires water based on your body weight.
+        Larger body mass needs more hydration to maintain proper circulation,
+        digestion, temperature control, and overall health.
+    </p>
+
+    <p class="fw-bold text-primary">
+        Daily Water Requirement = Weight (kg) × 0.033
+    </p>
+
+    <p class="mb-0">
+        Example: If your weight is 70 kg → You need approximately
+        <strong>2.31 Liters</strong> of water per day.
+    </p>
+
+</div>
+<!-- Weight Form -->
+<div class="section-card mb-4">
+    <h5><i class="bi bi-calculator me-2 text-success"></i>Update Weight</h5>
+
+    <form method="POST">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-6">
+                <label class="form-label">Enter Weight (kg)</label>
+                <input type="number"
+                       step="0.1"
+                       name="weight"
+                       class="form-control"
+                       placeholder="Enter new weight"
+                       required>
+            </div>
+
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary w-100">
+                    Calculate Water Requirement
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% if result %}
+
+<div class="section-card mb-4">
+
+    <h5><i class="bi bi-check-circle me-2 text-success"></i>Water Requirement</h5>
+
+    <div class="row g-4 mt-2 text-center">
+
+        <div class="col-md-4">
+            <div class="hydration-result-card">
+                <h6>Weight</h6>
+                <h3>{{ result.weight }} kg</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="hydration-result-card">
+                <h6>Required Water</h6>
+                <h3>{{ result.water }} L</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="hydration-result-card">
+                <h6>Calculated On</h6>
+                <h3>{{ result.time }}</h3>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Intake Buttons -->
+<div class="section-card mb-4">
+    <h5><i class="bi bi-cup-straw me-2 text-primary"></i>Track Today's Intake</h5>
+
+    <div class="row mt-3 text-center">
+
+        <div class="col-md-4">
+            <form method="POST">
+                <input type="hidden" name="add_amount" value="0.25">
+                <button class="btn btn-outline-primary w-100">+250 ml</button>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <form method="POST">
+                <input type="hidden" name="add_amount" value="0.5">
+                <button class="btn btn-outline-primary w-100">+500 ml</button>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <form method="POST">
+                <input type="hidden" name="add_amount" value="1">
+                <button class="btn btn-outline-primary w-100">+1 L</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="mt-4 text-center">
+        <h6>Today's Intake</h6>
+        <h3 class="fw-bold">{{ today_intake }} L</h3>
+    </div>
+
+    <!-- Progress Bar -->
+    {% set goal = result.water %}
+    {% set percent = 0 %}
+    {% if goal > 0 %}
+        {% set percent = (today_intake / goal * 100) %}
+    {% endif %}
+    {% if percent > 100 %}
+        {% set percent = 100 %}
+    {% endif %}
+
+    <div class="mt-4">
+        <label class="fw-bold">
+            Hydration Progress ({{ percent|round(1) }}%)
+        </label>
+
+        <div class="progress hydration-progress mt-2">
+            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                 role="progressbar"
+                 style="width: {{ percent }}%;">
+            </div>
+        </div>
+
+        <small class="text-muted">
+            {{ today_intake }} / {{ goal }} Liters
+        </small>
+    </div>
+
+</div>
+
+{% endif %}
+
+<div class="dashboard-footer">
+    © 2026 Smart Diet Planner — Hydration Tracker
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise Management</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+
+    <style>
+        .exercise-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Rounded search */
+        .search-box {
+            width: 260px;
+            position: relative;
+        }
+
+        .search-box input {
+            border-radius: 30px;
+            padding-right: 40px;
+        }
+
+        .search-box span {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+            font-size: 18px;
+        }
+
+        /* Rounded buttons */
+        .btn-round {
+            border-radius: 25px;
+            padding: 5px 18px;
+            font-size: 14px;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 25px;
+            padding: 4px 16px;
+        }
+
+        .btn-delete:hover {
+            background-color: #bb2d3b;
+        }
+
+        /* Pagination */
+        .pagination .page-item.active .page-link {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+    </style>
+</head>
+
+<body>
+
+{% include "admin_sidebar.html" %}
+{% include "admin_topbar.html" %}
+
+<div class="admin-content">
+<div class="container-fluid">
+<div class="row justify-content-center">
+<div class="col-xl-11">
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <div>
+        <h4 class="mb-1">Exercise Management</h4>
+        <p class="text-muted mb-0">Add and manage exercises</p>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+
+        <!-- SEARCH -->
+        <div class="search-box">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search exercise...">
+            <span onclick="clearSearch()">✕</span>
+        </div>
+
+        <!-- ADD BUTTON -->
+        <button class="btn btn-success btn-round"
+                data-bs-toggle="modal"
+                data-bs-target="#addExercise">
+            Add Exercise
+        </button>
+
+    </div>
+</div>
+
+<!-- TABLE -->
+<div class="user-card">
+<table class="table align-middle text-center" id="exerciseTable">
+
+<thead>
+<tr>
+<th>#</th>
+<th>Image</th>
+<th>Name</th>
+<th>Category</th>
+<th>BMI Range</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+{% for e in exercises %}
+<tr>
+<td>{{ loop.index }}</td>
+
+<td>
+{% if e[5] %}
+<img src="{{ url_for('static', filename='exercise/' + e[5]) }}" class="exercise-img">
+{% else %}
+No Image
+{% endif %}
+</td>
+
+<td>{{ e[1] }}</td>
+<td>{{ e[2] }}</td>
+<td>{{ e[3] }} - {{ e[4] }}</td>
+
+<td>
+<a href="{{ url_for('delete_exercise', id=e[0]) }}"
+   class="btn btn-delete btn-sm"
+   onclick="return confirm('Delete this exercise?')">
+Delete
+</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+</div>
+
+<!-- PAGINATION -->
+<nav class="mt-4">
+<ul class="pagination justify-content-center" id="pagination"></ul>
+</nav>
+
+<footer class="admin-footer text-center mt-4">
+© 2026 Smart Diet Planner — Admin Panel
+</footer>
+
+</div>
+</div>
+</div>
+</div>
+
+<!-- ADD EXERCISE MODAL -->
+<div class="modal fade" id="addExercise">
+<div class="modal-dialog modal-lg">
+
+<form method="POST"
+      action="{{ url_for('add_exercise') }}"
+      enctype="multipart/form-data"
+      class="modal-content">
+
+<div class="modal-header">
+<h5>Add Exercise</h5>
+<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+<div class="row">
+
+<div class="col-md-6">
+<input name="name"
+class="form-control mb-3"
+placeholder="Exercise Name"
+required>
+</div>
+
+<div class="col-md-6">
+<select name="category"
+class="form-control mb-3"
+required>
+<option value="">Select Category</option>
+<option>Weight Loss</option>
+<option>Weight Gain</option>
+<option>General Fitness</option>
+<option>Flexibility</option>
+<option>Strength</option>
+</select>
+</div>
+
+<div class="col-md-6">
+<input type="number"
+step="0.1"
+name="bmi_min"
+class="form-control mb-3"
+placeholder="BMI Min"
+required>
+</div>
+
+<div class="col-md-6">
+<input type="number"
+step="0.1"
+name="bmi_max"
+class="form-control mb-3"
+placeholder="BMI Max"
+required>
+</div>
+
+<div class="col-md-12">
+<input type="file"
+name="image"
+class="form-control mb-3"
+required>
+</div>
+
+<div class="col-md-12">
+<textarea name="instructions"
+class="form-control"
+rows="3"
+placeholder="Instructions"
+required></textarea>
+</div>
+
+</div>
+</div>
+
+<div class="modal-footer">
+<button class="btn btn-success btn-round">Save Exercise</button>
+</div>
+
+</form>
+</div>
+</div>
+
+<!-- SEARCH + PAGINATION SCRIPT -->
+<script>
+
+const searchInput = document.getElementById("searchInput");
+const tbody = document.querySelector("#exerciseTable tbody");
+const rows = [...tbody.rows];
+const pagination = document.getElementById("pagination");
+
+let filtered = [...rows];
+let page = 1;
+const perPage = 6;
+
+function render(){
+    rows.forEach(r => r.style.display="none");
+    filtered.slice((page-1)*perPage, page*perPage)
+            .forEach(r => r.style.display="");
+}
+
+function paginate(){
+    pagination.innerHTML="";
+    let pages = Math.ceil(filtered.length / perPage);
+
+    for(let i=1;i<=pages;i++){
+        let li=document.createElement("li");
+        li.className="page-item"+(i===page?" active":"");
+        li.innerHTML=`<a class="page-link">${i}</a>`;
+        li.onclick=()=>{page=i;render();paginate();};
+        pagination.appendChild(li);
+    }
+}
+
+function clearSearch(){
+    searchInput.value="";
+    filtered=[...rows];
+    page=1;
+    render();
+    paginate();
+}
+
+searchInput.addEventListener("keyup",()=>{
+    let v = searchInput.value.toLowerCase();
+    filtered = rows.filter(r => r.innerText.toLowerCase().includes(v));
+    page = 1;
+    render();
+    paginate();
+});
+
+render();
+paginate();
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="login-wrapper">
+    <div class="col-md-4">
+        <div class="card p-4 shadow">
+
+            <h3 class="text-center mb-3">Register</h3>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+
+                <input type="text" name="username"
+                       class="form-control mb-3"
+                       placeholder="Username" required>
+
+                <input type="password" name="password"
+                       class="form-control mb-3"
+                       placeholder="Password" required>
+
+                <button class="btn btn-success w-100">
+                    Register
+                </button>
+
+            </form>
+
+            <div class="text-center mt-3">
+                <small>
+                    Already have an account?
+                    <a href="{{ url_for('login') }}" class="text-success fw-bold">
+                        Login
+                    </a>
+                </small>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% if redirect_login %}
+<script>
+setTimeout(function(){
+    window.location.href = "{{ url_for('login') }}";
+}, 1000);
+</script>
+{% endif %}
+
+{% endblock %}

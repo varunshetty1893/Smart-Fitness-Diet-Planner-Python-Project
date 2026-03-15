@@ -1,0 +1,25 @@
+{% extends "user_layout.html" %}
+{% block content %}
+
+<div class="profile-card">
+
+    <div class="profile-title">
+        User Profile
+    </div>
+
+    <div class="profile-info">
+        <strong>Username:</strong> {{ username }}
+    </div>
+
+    <hr>
+
+    <form method="POST" class="profile-form">
+        <label>New Username</label>
+        <input type="text" name="new_username" required>
+
+        <button type="submit">Update</button>
+    </form>
+
+</div>
+
+{% endblock %}

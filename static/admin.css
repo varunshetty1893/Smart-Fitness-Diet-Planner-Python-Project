@@ -1,0 +1,295 @@
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background:#f4f6f9;
+}
+
+/* ========== SIDEBAR ========== */
+.admin-sidebar{
+    width:240px;
+    height:100vh;
+    background:linear-gradient(180deg,#1f2d3d,#0f172a);
+    position:fixed;
+    left:0;
+    top:0;
+    color:white;
+    z-index:1100;
+}
+
+/* LOGO */
+.admin-logo{
+    text-align:center;
+    padding:20px;
+    border-bottom:1px solid #2c3e50;
+}
+
+.admin-logo span{
+    display:block;
+    margin-top:10px;
+    letter-spacing:2px;
+    font-size:14px;
+}
+
+/* MENU */
+.admin-menu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 25px;
+    color:#cbd5e1;
+    text-decoration:none;
+    transition:0.25s ease;
+    font-size:14px;
+}
+
+.admin-menu a i{
+    font-size:17px;
+}
+
+.admin-menu a:hover{
+    background:#198754;
+    color:white;
+}
+
+/* ========== TOP BAR ========== */
+.admin-topnav{
+    position:fixed;
+    top:0;
+    left:240px;
+    right:0;
+    height:60px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    z-index:1000;
+}
+
+.admin-title{
+    font-size:17px;
+    font-weight:600;
+    color:#1f2d3d;
+}
+
+/* ========== CONTENT ========== */
+.admin-content{
+    margin-left:240px;
+    padding:90px 25px 25px 25px;
+}
+
+/* ========== FOOTER ========== */
+.admin-footer{
+    margin-top:40px;
+    padding-top:12px;
+    border-top:1px solid #d1d5db;
+    text-align:center;
+    color:#6b7280;
+    font-size:13px;
+}
+
+
+
+/* ========== PROFILE PAGE ========== */
+
+.profile-card{
+    background:white;
+    max-width:500px;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.profile-title{
+    font-size:22px;
+    font-weight:600;
+    margin-bottom:15px;
+    color:#1f2d3d;
+}
+
+.profile-info{
+    margin-bottom:20px;
+    font-size:15px;
+}
+
+.profile-form label{
+    font-weight:500;
+    margin-bottom:5px;
+}
+
+.profile-form input{
+    width:100%;
+    padding:8px 10px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+    margin-bottom:15px;
+}
+
+.profile-form button{
+    background:#198754;
+    color:white;
+    border:none;
+    padding:8px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.profile-form button:hover{
+    background:#157347;
+}
+
+/* ========== PROFILE PAGE ========== */
+
+.profile-card{
+    background:white;
+    max-width:500px;
+    margin:20px auto;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.profile-title{
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:15px;
+    color:#1f2d3d;
+}
+
+.profile-info{
+    font-size:14px;
+    margin-bottom:10px;
+    color:#374151;
+}
+
+.profile-form{
+    margin-top:15px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.profile-form label{
+    font-size:14px;
+    font-weight:500;
+}
+
+.profile-form input{
+    padding:8px 10px;
+    border-radius:6px;
+    border:1px solid #d1d5db;
+    outline:none;
+}
+
+.profile-form input:focus{
+    border-color:#198754;
+}
+
+.profile-form button{
+    margin-top:10px;
+    padding:8px;
+    border:none;
+    border-radius:6px;
+    background:#198754;
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.profile-form button:hover{
+    opacity:0.9;
+}
+
+/* Rounded status badge */
+.badge {
+    border-radius: 20px !important;
+    padding: 6px 12px;
+}
+
+/* Rounded buttons */
+.btn {
+    border-radius: 20px !important;
+    padding: 5px 14px;
+}
+/* Round the table container */
+.user-card {
+    background: white;
+    border-radius: 15px;   /* curve size */
+    overflow: hidden;      /* VERY IMPORTANT */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Remove sharp borders */
+.table {
+    margin-bottom: 0;
+}
+
+/* Add space inside table */
+.user-card table {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* OR better – add padding inside the card */
+.user-card {
+    padding: 20px;
+}
+
+/* Extra spacing for first column (#) */
+#exerciseTable th:first-child,
+#exerciseTable td:first-child {
+    padding-left: 25px;
+}
+
+
+
+.email-cell{
+    width:150px !important;
+}
+
+.subject-cell{
+    width:180px !important;
+}
+
+/* hard clamp email + subject */
+.email-text,
+.subject-text{
+    max-width:160px;
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* Unread highlight */
+.table-warning{
+    background:#fff3cd!important;
+}
+
+/* After read remove yellow */
+tr.read-row{
+    background:white!important;
+}
+/* ===== VIEW MESSAGE POPUP ===== */
+
+.message-box{
+    border:1px solid #dee2e6;
+    padding:15px;
+    border-radius:8px;
+    background:#f9fafb;
+    max-height:300px;
+    overflow-y:auto;
+    line-height:1.6;
+    font-size:14px;
+}
+
+.modal-body strong{
+    font-size:14px;
+}
+
+.modal-body span{
+    font-size:13px;
+}

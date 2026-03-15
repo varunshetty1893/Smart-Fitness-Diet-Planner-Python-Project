@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="login-wrapper">
+    <div class="col-md-4">
+        <div class="card p-4 shadow">
+
+            <h3 class="text-center mb-3">Login</h3>
+
+            <!-- FLASH MESSAGE -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show auto-dismiss">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+
+                <input type="text"
+                       name="username"
+                       class="form-control mb-3"
+                       placeholder="Username"
+                       required>
+
+                <input type="password"
+                       name="password"
+                       class="form-control mb-2"
+                       placeholder="Password"
+                       required>
+
+                <!-- FORGOT PASSWORD LINK -->
+                <div class="text-end mb-3">
+                    <a href="{{ url_for('forgot_password') }}"
+                       class="small text-success fw-semibold text-decoration-none">
+                        Forgot Password?
+                    </a>
+                </div>
+
+                <button class="btn btn-success w-100">
+                    Login
+                </button>
+
+                <div class="text-center mt-3">
+                    <small>
+                        Don’t have an account?
+                        <a href="{{ url_for('register') }}"
+                           class="text-success fw-bold">
+                            Register
+                        </a>
+                    </small>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- AUTO DISMISS SCRIPT -->
+<script>
+    setTimeout(function() {
+        document.querySelectorAll(".auto-dismiss").forEach(function(alert) {
+            alert.classList.remove("show");
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 3000);
+</script>
+
+{% endblock %}

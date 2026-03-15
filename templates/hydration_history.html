@@ -1,0 +1,151 @@
+{% extends "user_base.html" %}
+{% block content %}
+
+<div class="bmi-history-page">
+
+    <!-- HEADER -->
+    <div class="dashboard-header mb-4">
+        <h3>Water Intake History</h3>
+        <p>Track your hydration requirement records</p>
+    </div>
+
+    <!-- SUMMARY CARDS -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-title">Latest Requirement</div>
+                <div class="stat-value">{{ latest }} L</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-title">Highest Requirement</div>
+                <div class="stat-value">{{ highest }} L</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-title">Lowest Requirement</div>
+                <div class="stat-value">{{ lowest }} L</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-title">Total Records</div>
+                <div class="stat-value">{{ total }}</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CHART SECTION -->
+    <div class="section-card mb-4">
+        <h5 class="mb-3">Water Requirement Trend</h5>
+
+        {% if chart_labels %}
+        <div style="height: 350px;">
+            <canvas id="waterHistoryChart"></canvas>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            No data available to display chart.
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- TABLE SECTION -->
+    <div class="section-card">
+        <h5 class="mb-3">Water Requirement Records</h5>
+
+        {% if history %}
+        <div class="table-scroll-box">
+            <table class="table table-hover align-middle text-center">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Weight (kg)</th>
+                        <th>Required (L)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in history %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+
+                        <!-- Split created_at -->
+                        <td>{{ row[2].split(" ")[0] }}</td>
+                        <td>{{ row[2].split(" ")[1] }}</td>
+
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+
+                        <td>
+                            {% if row[1] < 1.5 %}
+                                <span class="badge bg-warning">Low Need</span>
+                            {% elif row[1] < 2.5 %}
+                                <span class="badge bg-success">Normal</span>
+                            {% else %}
+                                <span class="badge bg-danger">High Need</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+            No hydration records found.
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- Chart.js -->
+{% if chart_labels %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById("waterHistoryChart");
+
+new Chart(ctx, {
+    type: "bar",   // 🔥 changed from line → bar
+    data: {
+        labels: {{ chart_labels | safe }},
+        datasets: [{
+            label: "Water (L)",
+            data: {{ chart_values | safe }},
+            backgroundColor: "#2563eb",
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false   // removes legend box
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+{% endif %}
+
+{% endblock %}

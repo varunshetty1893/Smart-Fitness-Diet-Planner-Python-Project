@@ -1,0 +1,412 @@
+/* ==============================
+   GLOBAL
+================================ */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+    overflow-x: hidden;
+}
+
+/* ==============================
+   TOPBAR
+================================ */
+.topbar {
+    height: 60px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 1000;
+}
+
+.topbar h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* ==============================
+   SIDEBAR PROFESSIONAL
+================================ */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    color: white;
+    padding-top: 15px;
+}
+
+/* Logo Section */
+.sidebar .logo {
+    text-align: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #334155;
+}
+
+.sidebar .logo img {
+    width: 45px;
+    margin-bottom: 8px;
+}
+
+.sidebar .logo h6 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+/* Section Titles */
+.menu-title {
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 10px 25px;
+    color: #94a3b8;
+    margin-bottom: 5px;
+}
+
+/* Menu Links */
+.sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 12px 25px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.sidebar a i {
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.sidebar a:hover {
+    background: #16a34a;   /* Green */
+    color: #ffffff;
+    padding-left: 30px;
+}
+
+/* Active Link */
+.sidebar a.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-left: 4px solid #60a5fa;
+}
+
+/* Logout Special Style */
+.logout-link {
+    color: #f87171 !important;
+}
+
+.logout-link:hover {
+    background: rgba(248, 113, 113, 0.15);
+    color: #ffffff !important;
+}
+/* ==============================
+   CONTENT
+================================ */
+.content-area {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 30px;
+}
+
+/* Cards */
+.card {
+    border-radius: 12px;
+    border: none;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    border-radius: 10px;
+    border: none;
+}
+/* ==============================
+   DASHBOARD HEADER
+================================ */
+.dashboard-header h3 {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.dashboard-header p {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ==============================
+   STAT CARDS
+================================ */
+.stat-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 25px 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.stat-title {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 26px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Icon Colors */
+.icon-blue { color: #2563eb; }
+.icon-red { color: #ef4444; }
+.icon-cyan { color: #06b6d4; }
+.icon-yellow { color: #f59e0b; }
+
+/* ==============================
+   SECTION CARDS
+================================ */
+.section-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: 0.3s ease;
+}
+
+.section-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* ================= DASHBOARD GRAPH STYLE ================= */
+
+.section-card canvas {
+    width: 100% !important;
+    height: 300px !important;
+    margin-top: 20px;
+    display: block;
+}
+
+/* ==============================
+   SUMMARY SECTION
+================================ */
+.summary-box p {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.summary-box strong {
+    color: #111827;
+}
+
+/* ==============================
+   ALERT CUSTOM
+================================ */
+.alert-custom {
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+/* ==============================
+   FOOTER
+================================ */
+.dashboard-footer {
+    text-align: center;
+    font-size: 13px;
+    color: #9ca3af;
+    margin-top: 40px;
+}
+/* =====================================
+   CLEAN PROFESSIONAL EXERCISE CARD
+===================================== */
+
+.exercise-card {
+    border: none;
+    border-radius: 16px;
+    transition: all 0.25s ease;
+    background: #ffffff;
+    padding: 15px;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+.image-wrapper {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 10px;
+}
+
+.exercise-img {
+    max-height: 200px;
+    width: auto;
+    object-fit: contain;
+}
+
+.exercise-card h6 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.exercise-card .btn {
+    border-radius: 25px;
+    padding: 5px 14px;
+    font-size: 13px;
+}
+/* ================= BMI HISTORY OVERRIDE ================= */
+
+.bmi-history-page .bmi-chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
+.bmi-history-page canvas {
+    width: 100% !important;
+    height: 400px !important;
+    margin: 0 !important;
+}
+
+/* Summary Cards */
+.summary-card {
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    transition: 0.3s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.08);
+}
+
+/* Chart & Table Card */
+.chart-card,
+.table-card {
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+/* Hydration Hero */
+.hydration-hero {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    color: white;
+    padding: 30px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+}
+
+/* Result Cards */
+.hydration-result-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: 0.3s ease;
+}
+
+.hydration-result-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+/* Progress Bar */
+.hydration-progress {
+    height: 18px;
+    background-color: #e5e7eb;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.hydration-progress .progress-bar {
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+    transition: width 0.6s ease;
+}
+
+.table-scroll-box {
+    max-height: 400px;   /* height for approx 8 rows */
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+.table-scroll-box table {
+    margin-bottom: 0;
+}
+.card {
+    border: none;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+.profile-card {
+    max-width: 420px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 16px;
+    margin-top: 30px;
+}
+
+.profile-icon {
+    font-size: 70px;
+    color: #06912b;
+}
+
+.profile-details {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.profile-details div {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.profile-details span {
+    font-weight: 600;
+    color: #444;
+}
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-card {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 60px;
+}

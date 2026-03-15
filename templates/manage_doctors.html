@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Doctors</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+
+<body>
+
+{% include "admin_sidebar.html" %}
+{% include "admin_topbar.html" %}
+
+<div class="admin-content">
+<div class="container-fluid">
+<div class="row justify-content-center">
+<div class="col-xl-10">
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<div>
+<h4 class="mb-1">Doctor Management</h4>
+<small class="text-muted">Add and manage doctors</small>
+</div>
+
+<div class="d-flex align-items-center gap-3">
+
+<!-- SEARCH -->
+<div style="width:260px; position:relative;">
+<input type="text"
+       id="searchDoctor"
+       class="form-control rounded-pill pe-5"
+       placeholder="Search doctor...">
+
+<span id="clearDoctorSearch"
+      style="position:absolute;right:15px;top:50%;
+             transform:translateY(-50%);
+             cursor:pointer;color:#888;font-size:18px;">
+×
+</span>
+</div>
+
+<!-- ADD BUTTON -->
+<button class="btn btn-success btn-sm px-3"
+        data-bs-toggle="modal"
+        data-bs-target="#addDoctor">
+Add Doctor
+</button>
+
+</div>
+</div>
+
+<!-- TABLE -->
+<div class="user-card">
+<table class="table align-middle text-center" id="doctorTable">
+
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Specialization</th>
+<th>Phone</th>
+<th>Email</th>
+<th>Experience</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+{% for d in doctors %}
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ d[1] }}</td>
+<td>{{ d[2] }}</td>
+<td>{{ d[3] }}</td>
+<td>{{ d[4] }}</td>
+<td>{{ d[5] }} yrs</td>
+<td>
+<a href="{{ url_for('delete_doctor', id=d[0]) }}"
+   class="btn btn-danger btn-sm rounded-pill"
+   onclick="return confirm('Delete this doctor?')">
+Delete
+</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+</div>
+
+<!-- PAGINATION -->
+<div class="d-flex justify-content-center mt-4">
+<ul class="pagination" id="pagination"></ul>
+</div>
+
+<footer class="admin-footer text-center mt-5">
+© 2026 Smart Diet Planner — Admin Panel
+</footer>
+
+</div>
+</div>
+</div>
+</div>
+
+<!-- ADD DOCTOR MODAL -->
+<div class="modal fade" id="addDoctor">
+<div class="modal-dialog">
+
+<form method="POST"
+      action="{{ url_for('add_doctor') }}"
+      class="modal-content"
+      onsubmit="return validateDoctorForm()">
+
+<div class="modal-header">
+<h5>Add Doctor</h5>
+<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+<input name="name" class="form-control mb-2" placeholder="Doctor Name" required>
+<input name="specialization" class="form-control mb-2" placeholder="Specialization" required>
+<input name="phone" class="form-control mb-2" placeholder="Phone (10 digits)" required>
+<input name="email" class="form-control mb-2" placeholder="Email" required>
+<input name="experience" class="form-control" placeholder="Experience (Years)" required>
+</div>
+
+<div class="modal-footer">
+<button class="btn btn-success">Save</button>
+</div>
+
+</form>
+</div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+const rowsPerPage = 6;
+const table = document.getElementById("doctorTable");
+const pagination = document.getElementById("pagination");
+const searchInput = document.getElementById("searchDoctor");
+const clearSearch = document.getElementById("clearDoctorSearch");
+
+let allRows = Array.from(table.querySelectorAll("tbody tr"));
+let filteredRows = [...allRows];
+let currentPage = 1;
+
+function displayRows(page) {
+const start = (page - 1) * rowsPerPage;
+const end = start + rowsPerPage;
+
+allRows.forEach(row => row.style.display = "none");
+
+filteredRows.slice(start, end).forEach(row => {
+row.style.display = "";
+});
+}
+
+function setupPagination() {
+pagination.innerHTML = "";
+const pageCount = Math.ceil(filteredRows.length / rowsPerPage);
+
+for (let i = 1; i <= pageCount; i++) {
+const li = document.createElement("li");
+li.classList.add("page-item");
+if (i === currentPage) li.classList.add("active");
+
+const a = document.createElement("a");
+a.classList.add("page-link");
+a.href = "#";
+a.textContent = i;
+
+a.addEventListener("click", function (e) {
+e.preventDefault();
+currentPage = i;
+displayRows(currentPage);
+setupPagination();
+});
+
+li.appendChild(a);
+pagination.appendChild(li);
+}
+}
+
+// SEARCH
+searchInput.addEventListener("keyup", function () {
+const value = this.value.toLowerCase();
+filteredRows = allRows.filter(row =>
+row.innerText.toLowerCase().includes(value)
+);
+currentPage = 1;
+displayRows(currentPage);
+setupPagination();
+});
+
+// CLEAR SEARCH
+clearSearch.addEventListener("click", function () {
+searchInput.value = "";
+filteredRows = [...allRows];
+currentPage = 1;
+displayRows(currentPage);
+setupPagination();
+});
+
+displayRows(currentPage);
+setupPagination();
+
+});
+
+// VALIDATION
+function validateDoctorForm(){
+
+let name = document.querySelector("input[name='name']").value.trim();
+let specialization = document.querySelector("input[name='specialization']").value.trim();
+let phone = document.querySelector("input[name='phone']").value.trim();
+let email = document.querySelector("input[name='email']").value.trim();
+let experience = document.querySelector("input[name='experience']").value.trim();
+
+if(!name || !specialization || !phone || !email || !experience){
+alert("All fields are required!");
+return false;
+}
+
+if(!/^\d{10}$/.test(phone)){
+alert("Phone number must be exactly 10 digits.");
+return false;
+}
+
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+alert("Invalid email format.");
+return false;
+}
+
+if(!/^\d+$/.test(experience)){
+alert("Experience must be a number.");
+return false;
+}
+
+return true;
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
